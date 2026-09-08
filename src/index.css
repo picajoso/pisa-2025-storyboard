@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased;
+  }
+
+  ::selection {
+    @apply bg-cyan-400/30 text-slate-50;
+  }
+}
