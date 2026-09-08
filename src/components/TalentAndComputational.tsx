@@ -9,9 +9,9 @@ import {
   YAxis,
 } from 'recharts'
 import { motion } from 'framer-motion'
-import { Brain, Cpu } from 'lucide-react'
+import { Brain, Cpu, TrendingDown } from 'lucide-react'
 import SectionHeading from './SectionHeading'
-import { talentPyramid, computationalGap } from '../data/pisaData'
+import { talentPyramid, computationalGap, spainTalentHistory } from '../data/pisaData'
 import { fmt } from '../lib/format'
 
 interface TooltipPayloadItem {
@@ -135,11 +135,31 @@ export function TalentSection() {
               transition={{ duration: 0.55, delay: 0.18 }}
               className="flex-1 rounded-xl border border-slate-800 bg-slate-900/50 p-6"
             >
-              <h3 className="font-display text-xl font-medium text-slate-100">¿Y por qué importa?</h3>
+              <h3 className="font-display flex items-center gap-2 text-xl font-medium text-slate-100">
+                <TrendingDown className="h-5 w-5 text-rose-400" />
+                La excelencia que se evapora
+              </h3>
               <p className="mt-3 text-sm leading-relaxed text-slate-400">
-                El informe vincula el nivel 5-6 con carreras STEM y con la capacidad de razonar con datos y modelos
-                — exactamente las destrezas que la economía de la IA va a premiumizar. Un país con un 7 % de
-                top performers está exportando su capa de innovación.
+                En 2015, el informe destacaba a España por reducir bajos rendimientos y ampliar su élite. La
+                tendencia se ha invertido:
+              </p>
+              <div className="mt-4 space-y-2.5">
+                {spainTalentHistory
+                  .filter((h) => h.top !== null)
+                  .map((h) => (
+                    <div key={h.year} className="flex items-center gap-3 text-sm">
+                      <span className="w-10 text-slate-500 tabular-nums">{h.year}</span>
+                      <span className="text-emerald-300 tabular-nums">▲ {fmt(h.top!, 1)} %</span>
+                      <span className="text-slate-600">top</span>
+                      <span className="ml-auto text-rose-300 tabular-nums">▼ {fmt(h.low!, 1)} %</span>
+                      <span className="text-slate-600">bajos</span>
+                    </div>
+                  ))}
+              </div>
+              <p className="mt-4 border-t border-slate-800 pt-3 text-xs leading-relaxed text-slate-500">
+                En 2015 había 1,06 alumnos de excelencia por cada bajo rendidor. Hoy hay 0,38. El nivel 5-6 se
+                vincula a carreras STEM y al razonamiento con datos — las destrezas que la década de la IA va a
+                premiumizar.
               </p>
             </motion.div>
           </div>

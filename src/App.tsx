@@ -1,5 +1,7 @@
 import Hero from './components/Hero'
 import SectionNav from './components/SectionNav'
+import HistoricalLines from './components/HistoricalLines'
+import CycleStory from './components/CycleStory'
 import ScoreBarChart from './components/ScoreBarChart'
 import RegionalGap from './components/RegionalGap'
 import AiDebate from './components/AiDebate'
@@ -15,6 +17,8 @@ function App() {
       <SectionNav />
       <main>
         <Hero />
+        <HistoricalLines />
+        <CycleStory />
         <ScoreBarChart />
         <RegionalGap />
         <AiDebate />

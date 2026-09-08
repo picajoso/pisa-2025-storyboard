@@ -67,6 +67,89 @@ export const historicalMeans: HistoricalEntity[] = [
 ]
 
 /* ------------------------------------------------------------------ */
+/* 1b. Serie histórica completa 2015 → 2025 (verificada en cada Vol. I) */
+/*     Fuentes: Tabla I.1 de cada ciclo + "Overview of performance     */
+/*     trends in Spain" del Vol. I 2022 (p. 465).                      */
+/* ------------------------------------------------------------------ */
+
+export interface CyclePoint {
+  year: 2015 | 2018 | 2022 | 2025
+  /** null = no reportado ese ciclo (España no publicó lectura en 2018, Annex A9) */
+  esp: { science: number | null; math: number | null; reading: number | null }
+  oecd: { science: number | null; math: number | null; reading: number | null }
+}
+
+export const historicalSeries: CyclePoint[] = [
+  { year: 2015, esp: { science: 493, math: 486, reading: 496 }, oecd: { science: 493, math: 490, reading: 493 } },
+  { year: 2018, esp: { science: 483, math: 481, reading: null }, oecd: { science: 489, math: 489, reading: 487 } },
+  { year: 2022, esp: { science: 485, math: 473, reading: 474 }, oecd: { science: 485, math: 472, reading: 476 } },
+  { year: 2025, esp: { science: 477, math: 457, reading: 451 }, oecd: { science: 482, math: 463, reading: 461 } },
+]
+
+/** Share de top/low performers de España por ciclo (Tabla I.1 de cada Vol. I). null = no reportado. */
+export const spainTalentHistory: { year: 2015 | 2018 | 2022 | 2025; top: number | null; low: number | null }[] = [
+  { year: 2015, top: 10.9, low: 10.3 },
+  { year: 2018, top: null, low: null },
+  { year: 2022, top: 10.6, low: 12.9 },
+  { year: 2025, top: 7.0, low: 18.4 },
+]
+
+/** Hitos editoriales por ciclo — citables de cada informe. */
+export const cycleMilestones: {
+  year: 2015 | 2018 | 2022 | 2025
+  kicker: string
+  headline: string
+  kpi: { value: string; label: string }
+  quote: string
+  quoteSource: string
+  tone: 'positive' | 'warning' | 'negative'
+}[] = [
+  {
+    year: 2015,
+    kicker: 'El techo',
+    headline: 'España toca su mejor marca y supera a la OCDE en lectura',
+    kpi: { value: '496', label: 'lectura · 5 pts sobre la OCDE' },
+    quote:
+      'España fue capaz de aumentar simultáneamente la proporción de altos rendimientos y reducir la de bajos en lectura entre 2009 y 2015.',
+    quoteSource: 'PISA 2015 Results (Vol. I) · Chapter 2',
+    tone: 'positive',
+  },
+  {
+    year: 2018,
+    kicker: 'La fisura',
+    headline: 'Ciencia y mates empiezan a caer — y España no publica lectura',
+    kpi: { value: '−10', label: 'pts en ciencia desde 2015' },
+    quote:
+      'Los resultados de lectura de España se reportan como missing (Annex A9): un problema de muestreo dejó sin dato comparable la competencia principal de ese ciclo.',
+    quoteSource: 'PISA 2018 Results (Vol. I) · Tabla I.1 y Annex A9',
+    tone: 'warning',
+  },
+  {
+    year: 2022,
+    kicker: 'El golpe',
+    headline: 'COVID acelera la caída: España pierde en las tres competencias',
+    kpi: { value: '−22', label: 'pts de lectura desde 2015' },
+    quote:
+      'El declive solo puede atribuirse parcialmente a la pandemia de COVID-19: las notas de lectura y ciencia ya estaban cayendo antes.',
+    quoteSource: 'PISA 2022 Results (Vol. I) · Executive summary',
+    tone: 'negative',
+  },
+  {
+    year: 2025,
+    kicker: 'El mínimo',
+    headline: 'El peor resultado de la serie: España cae en las tres competencias',
+    kpi: { value: '451', label: 'lectura · mínimo histórico' },
+    quote:
+      'La caída de lectura de la OCDE desde 2018 equivale a más de un año de aprendizaje: los alumnos de 15 años leen como podían hacerlo los de 14 siete años antes.',
+    quoteSource: 'PISA 2025 Results (Vol. I) · Annex A1 (p. 309)',
+    tone: 'negative',
+  },
+]
+
+export const reading2018Note =
+  'España no participó en la evaluación de lectura de PISA 2018 por un problema de muestreo (Annex A9 del Vol. I 2018): los datos 2018 de lectura están reportados como "m" (missing) en la tabla I.1.'
+
+/* ------------------------------------------------------------------ */
 /* 2. Comparativa 2025: España vs UE vs OCDE vs Top Global             */
 /*    (Tabla I.1, p. 28 — Volumen I)                                   */
 /* ------------------------------------------------------------------ */

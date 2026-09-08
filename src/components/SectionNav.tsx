@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 
 const LINKS = [
+  { href: '#decada', label: 'La década' },
+  { href: '#ciclos', label: 'Ciclos' },
   { href: '#comparador', label: 'Ranking' },
   { href: '#autonomias', label: 'Autonomías' },
   { href: '#ia', label: 'IA' },
   { href: '#calculadora', label: 'Calculadora' },
   { href: '#talento', label: 'Talento' },
-  { href: '#genero', label: 'Género' },
-  { href: '#equidad', label: 'Equidad' },
   { href: '#bienestar', label: 'Bienestar' },
 ]
 
