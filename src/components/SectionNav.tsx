@@ -1,18 +1,27 @@
 import { useEffect, useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 
-const LINKS = [
+const SPAIN_LINKS = [
   { href: '#decada', label: 'La década' },
   { href: '#ciclos', label: 'Ciclos' },
   { href: '#comparador', label: 'Ranking' },
   { href: '#autonomias', label: 'Autonomías' },
   { href: '#ia', label: 'IA' },
-  { href: '#calculadora', label: 'Calculadora' },
   { href: '#talento', label: 'Talento' },
   { href: '#bienestar', label: 'Bienestar' },
 ]
 
-export default function SectionNav() {
+const WORLD_LINKS = [
+  { href: '#mapa', label: 'Ganadores y perdedores' },
+  { href: '#conclusiones', label: 'Conclusiones' },
+]
+
+interface SectionNavProps {
+  view: 'spain' | 'world'
+  onViewChange: (v: 'spain' | 'world') => void
+}
+
+export default function SectionNav({ view }: SectionNavProps) {
   const [visible, setVisible] = useState(false)
   const { scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.3 })
@@ -23,6 +32,8 @@ export default function SectionNav() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const links = view === 'spain' ? SPAIN_LINKS : WORLD_LINKS
 
   return (
     <motion.div
@@ -35,8 +46,8 @@ export default function SectionNav() {
         <a href="#" className="font-display text-sm font-medium text-slate-200">
           PISA 2025 <span className="text-slate-600">· una década perdida</span>
         </a>
-        <nav className="flex items-center gap-1 sm:gap-2" aria-label="Secciones">
-          {LINKS.map((l) => (
+        <nav className="hidden items-center gap-1 sm:flex" aria-label="Secciones">
+          {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
