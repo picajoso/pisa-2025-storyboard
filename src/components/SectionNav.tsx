@@ -14,6 +14,7 @@ const SPAIN_LINKS = [
 const WORLD_LINKS = [
   { href: '#mapa', label: 'Ganadores y perdedores' },
   { href: '#conclusiones', label: 'Conclusiones' },
+  { href: '#casos', label: 'Casos raros' },
 ]
 
 interface SectionNavProps {

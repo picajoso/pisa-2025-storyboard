@@ -13,6 +13,7 @@ import GenderGaps from './components/GenderGaps'
 import EquityContext from './components/EquityContext'
 import WellbeingParadox from './components/WellbeingParadox'
 import WorldTrends from './components/WorldTrends'
+import OddCases from './components/OddCases'
 import Footer from './components/Footer'
 
 type View = 'spain' | 'world'
@@ -82,6 +83,7 @@ function App() {
             <main>
               <WorldHero />
               <WorldTrends />
+              <OddCases />
             </main>
           )}
           <Footer />
