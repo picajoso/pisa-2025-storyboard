@@ -5,6 +5,8 @@ import {
   BarChart,
   Cell,
   LabelList,
+  Line,
+  LineChart,
   ReferenceLine,
   ResponsiveContainer,
   Tooltip,
@@ -244,6 +246,14 @@ export default function WorldTrends() {
                     value={selectedRow.d1825 !== null ? `${selectedRow.d1825 > 0 ? '+' : '−'}${fmt(Math.abs(selectedRow.d1825))}` : '—'}
                   />
                 </div>
+
+                {/* Evolución por materia */}
+                <div className="mt-5 border-t border-slate-800 pt-4">
+                  <p className="mb-2 text-xs font-medium text-slate-400">Evolución por materia · 2015–2025</p>
+                  <div className="h-36">
+                    <SubjectLines trend={selected} />
+                  </div>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -311,6 +321,57 @@ export default function WorldTrends() {
         </div>
       </section>
     </div>
+  )
+}
+
+const YEARS = [2015, 2018, 2022, 2025] as const
+const SUBJECT_SERIES = [
+  { key: 'science', label: 'Ciencia', color: '#22d3ee' },
+  { key: 'math', label: 'Mates', color: '#2dd4bf' },
+  { key: 'reading', label: 'Lectura', color: '#f59e0b' },
+] as const
+
+/** Mini-gráfico de líneas: las 3 materias del país seleccionado por ciclo. */
+function SubjectLines({ trend }: { trend: CountryTrend }) {
+  const data = YEARS.map((y) => {
+    const c = trend.cycles[y]
+    return {
+      year: y,
+      science: c ? c[0] : null,
+      math: c ? c[1] : null,
+      reading: c ? c[2] : null,
+    }
+  })
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={data} margin={{ top: 6, right: 10, left: -22, bottom: 0 }}>
+        <XAxis dataKey="year" tick={{ fill: '#64748b', fontSize: 10 }} tickLine={false} axisLine={{ stroke: '#334155' }} />
+        <YAxis domain={['dataMin - 15', 'dataMax + 15']} tick={{ fill: '#475569', fontSize: 9 }} tickLine={false} axisLine={false} />
+        <Tooltip
+          contentStyle={{
+            backgroundColor: 'rgba(15,23,42,0.95)',
+            border: '1px solid #334155',
+            borderRadius: 8,
+            fontSize: 12,
+          }}
+          labelStyle={{ color: '#f1f5f9', fontWeight: 600 }}
+          formatter={(value: unknown) => [`${fmt(Number(value))} pts`, '']}
+        />
+        {SUBJECT_SERIES.map((s) => (
+          <Line
+            key={s.key}
+            type="monotone"
+            dataKey={s.key}
+            stroke={s.color}
+            strokeWidth={2}
+            dot={{ r: 3, fill: s.color, strokeWidth: 0 }}
+            connectNulls={false}
+            animationDuration={600}
+          />
+        ))}
+      </LineChart>
+    </ResponsiveContainer>
   )
 }
 

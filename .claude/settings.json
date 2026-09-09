@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep *)",
+      "Bash(sed -n *)",
+      "Bash(awk *)",
+      "Bash(python3 *)",
+      "Bash(pdftotext *)",
+      "Bash(sips -g *)",
+      "Bash(curl -s *)",
+      "Bash(npm run build)",
+      "Bash(npm run lint)",
+      "Bash(npm run dev *)",
+      "Bash(npm test *)",
+      "Bash(npm install *)",
+      "Bash(npm pkg *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(mkdir *)"
+    ]
+  }
+}
