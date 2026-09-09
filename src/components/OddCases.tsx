@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { BadgeCheck, AlertTriangle, XCircle, ExternalLink, Check, Minus } from 'lucide-react'
+import { BadgeCheck, AlertTriangle, XCircle, ExternalLink, Check, ChevronDown } from 'lucide-react'
 import SectionHeading from './SectionHeading'
 import { oddCases, oddCasesIntro, type Verdict } from '../data/oddCases'
 
@@ -25,7 +25,7 @@ export default function OddCases() {
           description={oddCasesIntro}
         />
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid items-start gap-4 md:grid-cols-2">
           {oddCases.map((c, i) => {
             const style = VERDICT_STYLE[c.verdict]
             const VerdictIcon = style.icon
@@ -54,7 +54,7 @@ export default function OddCases() {
                   </span>
                 </div>
 
-                <blockquote className="mt-4 text-sm leading-relaxed text-slate-300 italic">«{c.claim}»</blockquote>
+                <blockquote className="mt-4 text-sm leading-relaxed text-slate-300 italic">{c.claim}</blockquote>
                 <p className="mt-2 text-[11px] text-slate-500">{c.claimSource}</p>
 
                 <button
@@ -63,8 +63,8 @@ export default function OddCases() {
                   className="mt-4 flex w-full items-center justify-between border-t border-slate-800 pt-3 text-xs font-medium tracking-wider text-slate-400 uppercase transition-colors hover:text-slate-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
                 >
                   {open ? 'Ocultar el análisis' : 'Lo que dicen los datos'}
-                  <Minus
-                    className={`h-3.5 w-3.5 transition-transform duration-300 ${open ? '' : 'rotate-90'}`}
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
                   />
                 </button>
 
